@@ -42,7 +42,7 @@ public synchronized void depositAmount(Integer accountNumber, Integer amount) {
 		accountRepo.save(account);
 		
 	}
-@Transactional
+	@Transactional
 	public synchronized void fundTransfer(Integer sourceAccNumber, Integer destAccNumberInteger ,Integer amount) {
 		
 		if(null ==sourceAccNumber || null == destAccNumberInteger  ) {
@@ -60,6 +60,7 @@ public synchronized void depositAmount(Integer accountNumber, Integer amount) {
 			}
 			
 			int transferedAmount = destAccount.getAccountBalance()+amount;
+			sourceAccount.setAccountBalance(sourceAccount.getAccountBalance()-amount);
 			destAccount.setAccountBalance(transferedAmount);
 			accountRepo.save(destAccount);
 		}
